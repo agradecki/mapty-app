@@ -245,6 +245,7 @@ class App {
             <span class="workout__value">${workout.cadence}</span>
             <span class="workout__unit">spm</span>
         </div>
+         <button class="remove__btn">×</button>
         </li>
             `;
 
@@ -260,6 +261,7 @@ class App {
                 <span class="workout__value">${workout.elevationGain}</span>
                 <span class="workout__unit">m</span>
             </div>
+             <button class="remove__btn">×</button>
             </li>
                 `;
 
