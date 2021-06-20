@@ -69,9 +69,9 @@ const inputElevation = document.querySelector('.form__input--elevation');
 const sortDivider = document.querySelector('.sort__divider');
 const showSortBtns = document.querySelector('.show__sort__btns');
 const validationMsg = document.querySelector('.validation__msg');
-const clearAllBtn = document.querySelector('.clr__all__btn');
+const removeAllBtn = document.querySelector('.clr__all__btn');
 const overviewBtn = document.querySelector('.overview__btn');
-const confMsg = document.querySelector('.confirmation__msg');
+const confirmMsg = document.querySelector('.confirmation__msg');
 const yesBtn = document.querySelector('.yes__button');
 const noBtn = document.querySelector('.no__button');
 const sortContainer = document.querySelector('.sort__buttons__container');
@@ -94,6 +94,12 @@ class App {
     inputType.addEventListener('change', this._toggleElevationField);
     containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
     containerWorkouts.addEventListener('click', this._removeWorkout.bind(this));
+    removeAllBtn.addEventListener('click', this._showDeleteMsg);
+    yesBtn.addEventListener('click', this._removeAllWorkouts.bind(this));
+    noBtn.addEventListener('click', function () {
+      confirmMsg.classList.add('msg__hidden');
+    });
+    showSortBtns.addEventListener('click', this._toggleSortBtns.bind(this));
   }
 
   _getPosition() {
@@ -124,6 +130,9 @@ class App {
     this.#workouts.forEach(work => {
       this._renderWorkoutMarker(work);
     });
+
+    // overview button listener
+    overviewBtn.addEventListener('click', this._overview.bind(this));
   }
 
   _showForm(mapE) {
@@ -326,6 +335,45 @@ class App {
     localStorage.removeItem('workouts');
     this._setLocalStorage();
     location.reload();
+  }
+
+  _removeAllWorkouts() {
+    localStorage.clear();
+    location.reload();
+    confirmMsg.classList.add('msg__hidden');
+  }
+
+  _showDeleteMsg() {
+    confirmMsg.classList.remove('msg__hidden');
+  }
+
+  _toggleSortBtns() {
+    sortContainer.classList.toggle('no__height');
+  }
+
+  _overview() {
+    if (this.#workouts.length === 0) return;
+
+    // find the lowest and highest latitude and longitude so that the map boundaries match all markers
+    const latitudes = this.#workouts.map(work => {
+      return work.coords[0];
+    });
+    const longitudes = this.#workouts.map(work => {
+      return work.coords[1];
+    });
+    const minLat = Math.min(...latitudes);
+    const maxLat = Math.max(...latitudes);
+    const minLong = Math.min(...longitudes);
+    const maxLong = Math.max(...longitudes);
+
+    // match boundaries with coordinates
+    this.#map.fitBounds(
+      [
+        [maxLat, minLong],
+        [minLat, maxLong],
+      ],
+      { padding: [70, 70] }
+    );
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   _setLocalStorage() {
