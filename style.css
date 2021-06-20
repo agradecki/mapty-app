@@ -288,12 +288,6 @@ a:visited {
   border: 2px solid var(--color-gray--1);
 }
 
-.validation__msg {
-  font-size: 1.5rem;
-  transition: all 0.7s;
-  overflow: hidden;
-  height: 0;
-}
 .msg__show {
   height: 40px;
   padding: 1rem;

@@ -100,6 +100,7 @@ class App {
       confirmMsg.classList.add('msg__hidden');
     });
     showSortBtns.addEventListener('click', this._toggleSortBtns.bind(this));
+    sortContainer.addEventListener('click', this._sortAndRender.bind(this));
   }
 
   _getPosition() {
@@ -375,6 +376,85 @@ class App {
       { padding: [70, 70] }
     );
   }
+
+  _sortAndRender(e) {
+    const element = e.target.closest('.sort__button');
+    let currentDirection = 'descending'; //default
+
+    if (!element) return;
+    const arrow = element.querySelector('.arrow');
+    const type = element.dataset.type;
+
+    // set all arrows to default state (down)
+    sortContainer
+      .querySelectorAll('.arrow')
+      .forEach(arrow => arrow.classList.remove('arrow__up'));
+
+    // get which direction to sort
+    const typeValues = this.#workouts.map(workout => {
+      return workout[type];
+    });
+    const sortedAscending = typeValues
+      .slice()
+      .sort(function (a, b) {
+        return a - b;
+      })
+      .join('');
+    const sortedDescending = typeValues
+      .slice()
+      .sort(function (a, b) {
+        return b - a;
+      })
+      .join('');
+
+    // compare sortedAscending array with values from #workout array to check how are they sorted
+    // 1. case 1 ascending
+    if (typeValues.join('') === sortedAscending) {
+      currentDirection = 'ascending';
+      arrow.classList.add('arrow__up');
+    }
+    // 2. case 2 descending
+    if (typeValues.join('') === sortedDescending) {
+      currentDirection = 'descending';
+      arrow.classList.remove('arrow__up');
+    }
+
+    // sort main workouts array
+    this._sortArray(this.#workouts, currentDirection, type);
+
+    ///////// RE-RENDER ////////
+    // clear rendered workouts from DOM
+    containerWorkouts
+      .querySelectorAll('.workout')
+      .forEach(workout => workout.remove());
+
+    // render list all again sorted
+    this.#workouts.forEach(workout => {
+      this._renderWorkout(workout);
+    });
+
+    // center map on the last item in array
+    const lastWorkout = this.#workouts[this.#workouts.length - 1];
+    this._setIntoView(lastWorkout);
+  }
+  _sortArray(array, currentDirection, type) {
+    // sort opposite to the currentDirection
+    if (currentDirection === 'ascending') {
+      array.sort(function (a, b) {
+        return b[type] - a[type];
+      });
+    }
+    if (currentDirection === 'descending') {
+      array.sort(function (a, b) {
+        return a[type] - b[type];
+      });
+    }
+  }
+
+  _setIntoView(workout) {
+    this.#map.setView(workout.coords, this.#mapZoomLevel);
+  }
+
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   _setLocalStorage() {
     localStorage.setItem('workouts', JSON.stringify(this.#workouts));
