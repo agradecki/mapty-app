@@ -66,6 +66,15 @@ const inputDistance = document.querySelector('.form__input--distance');
 const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
+const sortDivider = document.querySelector('.sort__divider');
+const showSortBtns = document.querySelector('.show__sort__btns');
+const validationMsg = document.querySelector('.validation__msg');
+const clearAllBtn = document.querySelector('.clr__all__btn');
+const overviewBtn = document.querySelector('.overview__btn');
+const confMsg = document.querySelector('.confirmation__msg');
+const yesBtn = document.querySelector('.yes__button');
+const noBtn = document.querySelector('.no__button');
+const sortContainer = document.querySelector('.sort__buttons__container');
 
 class App {
   #map;
@@ -219,7 +228,7 @@ class App {
 
   _renderWorkout(workout) {
     let html = `
-        <li class="workout workout--${workout.type}" data-id="${workout.id}">
+  <li class="workout workout--${workout.type}" data-id="${workout.id}">
             <h2 class="workout__title">${workout.description}</h2>
             <div class="workout__details">
                 <span class="workout__icon">${
@@ -247,9 +256,6 @@ class App {
             <span class="workout__unit">spm</span>
         </div>
             <div class="workout__controls">
-                <button data-type="edit" class="edit">
-                  <i class="demo-icon icon-edit" data-id=${workout.id}></i>
-                </button>  
                 <button data-type="delete" class="delete">
                   <i class="demo-icon icon-trash-empty" data-id=${
                     workout.id
@@ -272,9 +278,6 @@ class App {
                 <span class="workout__unit">m</span>
             </div>
               <div class="workout__controls">
-                <button data-type="edit" class="edit">
-                  <i class="demo-icon icon-edit" data-id=${workout.id}></i>
-                </button>  
                 <button data-type="delete" class="delete">
                   <i class="demo-icon icon-trash-empty" data-id=${
                     workout.id

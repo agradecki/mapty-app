@@ -370,12 +370,11 @@ h1 span {
   top: 15%;
 }
 
-.edit {
-  position: absolute;
-  right: 15%;
-  top: 15%;
-}
-
 .workout__controls button:hover {
   background: rgb(99, 106, 110);
+}
+
+.sort__divider {
+  margin: 1rem 0;
+  border: 1px solid var(--color-gray--1);
 }
