@@ -75,6 +75,7 @@ const confirmMsg = document.querySelector('.confirmation__msg');
 const yesBtn = document.querySelector('.yes__button');
 const noBtn = document.querySelector('.no__button');
 const sortContainer = document.querySelector('.sort__buttons__container');
+const iconDiv = document.querySelector('.icon-div');
 
 class App {
   #map;
@@ -88,6 +89,9 @@ class App {
 
     // Get data from local storage
     this._getLocalStorage();
+
+    //hide icon
+    if (this.#workouts.length) iconDiv.classList.add('hide-icon');
 
     // Attach event handlers
     form.addEventListener('submit', this._newWorkout.bind(this));
@@ -137,6 +141,9 @@ class App {
   }
 
   _showForm(mapE) {
+    // hide icon
+    iconDiv.classList.add('hide-icon');
+
     this.#mapEvent = mapE;
     form.classList.remove('hidden');
     inputDistance.focus();
@@ -341,7 +348,12 @@ class App {
   _removeAllWorkouts() {
     localStorage.clear();
     location.reload();
+
+    // hide message
     confirmMsg.classList.add('msg__hidden');
+
+    // show icon
+    iconDiv.classList.remove('hide-icon');
   }
 
   _showDeleteMsg() {

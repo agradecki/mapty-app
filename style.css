@@ -372,3 +372,16 @@ h1 span {
   margin: 1rem 0;
   border: 1px solid var(--color-gray--1);
 }
+
+.icon-div {
+  text-align: center;
+}
+
+.icon {
+  height: 160px;
+  margin-top: 120px;
+}
+
+.hide-icon {
+  display: none;
+}
