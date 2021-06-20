@@ -7,6 +7,7 @@
   --color-light--1: #aaa;
   --color-light--2: #ececec;
   --color-light--3: rgb(214, 222, 224);
+  --color-gray--1: #c3c3c3;
 }
 
 * {
@@ -72,7 +73,7 @@ a:visited {
   padding: 1.5rem 2.25rem;
   margin-bottom: 1.75rem;
   cursor: pointer;
-
+  position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 0.75rem 1.5rem;
@@ -233,4 +234,148 @@ a:visited {
 }
 .remove__btn:hover {
   color: var(--color-light--1);
+}
+
+.operations {
+  display: flex;
+  justify-content: space-between;
+}
+.show__sort__btns {
+  background-color: var(--color-dark--1);
+  color: inherit;
+  border: 2px solid var(--color-dark--2);
+  border-radius: 10px 0 10px 0;
+  font-size: 1.5rem;
+  padding: 0.7rem;
+  outline: none;
+}
+.show__sort__btns:hover {
+  border-color: var(--color-light--1);
+}
+.sort__buttons__container {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1rem;
+  padding-top: 1rem;
+  overflow: hidden;
+  transition: all 1s;
+  height: 4.2rem;
+}
+.no__height {
+  height: 0;
+}
+.sort__button {
+  background-color: var(--color-dark--1);
+  border: none;
+  padding: 0.5rem;
+  color: var(--color-light--2);
+  transition: all 0.5s;
+}
+.sort__button:hover {
+  transform: translateY(-4px) scale(1.1);
+}
+.arrow {
+  font-size: 1.5rem;
+  font-weight: 800;
+  display: inline-block;
+  transform: rotate(180deg);
+}
+.arrow__up {
+  transform: rotate(360deg);
+}
+.sort__devider {
+  margin: 1rem 0;
+  border: 2px solid var(--color-gray--1);
+}
+
+.validation__msg {
+  font-size: 1.5rem;
+  transition: all 0.7s;
+  overflow: hidden;
+  height: 0;
+}
+.msg__show {
+  height: 40px;
+  padding: 1rem;
+  padding-top: 0;
+}
+.positive__numbers {
+  color: var(--color-brand--1);
+}
+
+.confirmation__msg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999999999;
+  /* display: none; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.msg__hidden {
+  display: none;
+}
+.msg {
+  background-color: var(--color-dark--2);
+  padding: 3rem;
+  height: 20rem;
+}
+.question {
+  margin-bottom: 3rem;
+}
+.msg__buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0.5rem;
+}
+.choice__button {
+  border: none;
+  background-color: var(--color-light--1);
+  padding: 1.5rem;
+  border-radius: 50% 0 50% 0;
+  min-width: 70px;
+}
+.yes__button {
+  background-color: var(--color-brand--1);
+}
+.no__button {
+  background-color: var(--color-brand--2);
+}
+h1 span {
+  color: var(--color-brand--1);
+}
+
+.workout__controls button {
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 50%;
+  border: none;
+  margin-left: 0.5rem;
+  background-color: #52595e;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  outline: none;
+  transition: all 100ms;
+}
+
+.delete {
+  position: absolute;
+  right: 5%;
+  top: 15%;
+}
+
+.edit {
+  position: absolute;
+  right: 15%;
+  top: 15%;
+}
+
+.workout__controls button:hover {
+  background: rgb(99, 106, 110);
 }

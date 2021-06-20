@@ -245,7 +245,14 @@ class App {
             <span class="workout__value">${workout.cadence}</span>
             <span class="workout__unit">spm</span>
         </div>
-         <button class="remove__btn">×</button>
+            <div class="workout__controls">
+                <button data-type="edit" class="edit">
+                  <i class="demo-icon icon-edit"></i>
+                </button>  
+                <button data-type="delete" class="delete">
+                  <i class="demo-icon icon-trash-empty"></i>
+                </button>  
+              </div>
         </li>
             `;
 
@@ -261,7 +268,14 @@ class App {
                 <span class="workout__value">${workout.elevationGain}</span>
                 <span class="workout__unit">m</span>
             </div>
-             <button class="remove__btn">×</button>
+              <div class="workout__controls">
+                <button data-type="edit" class="edit">
+                  <i class="demo-icon icon-edit"></i>
+                </button>  
+                <button data-type="delete" class="delete">
+                  <i class="demo-icon icon-trash-empty"></i>
+                </button>  
+              </div>
             </li>
                 `;
 
