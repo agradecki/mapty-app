@@ -84,6 +84,7 @@ class App {
     form.addEventListener('submit', this._newWorkout.bind(this));
     inputType.addEventListener('change', this._toggleElevationField);
     containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
+    containerWorkouts.addEventListener('click', this._removeWorkout.bind(this));
   }
 
   _getPosition() {
@@ -247,10 +248,12 @@ class App {
         </div>
             <div class="workout__controls">
                 <button data-type="edit" class="edit">
-                  <i class="demo-icon icon-edit"></i>
+                  <i class="demo-icon icon-edit" data-id=${workout.id}></i>
                 </button>  
                 <button data-type="delete" class="delete">
-                  <i class="demo-icon icon-trash-empty"></i>
+                  <i class="demo-icon icon-trash-empty" data-id=${
+                    workout.id
+                  }></i>
                 </button>  
               </div>
         </li>
@@ -270,10 +273,12 @@ class App {
             </div>
               <div class="workout__controls">
                 <button data-type="edit" class="edit">
-                  <i class="demo-icon icon-edit"></i>
+                  <i class="demo-icon icon-edit" data-id=${workout.id}></i>
                 </button>  
                 <button data-type="delete" class="delete">
-                  <i class="demo-icon icon-trash-empty"></i>
+                  <i class="demo-icon icon-trash-empty" data-id=${
+                    workout.id
+                  }></i>
                 </button>  
               </div>
             </li>
@@ -284,7 +289,6 @@ class App {
 
   _moveToPopup(e) {
     const workoutEl = e.target.closest('.workout');
-
     if (!workoutEl) return;
 
     const workout = this.#workouts.find(
@@ -299,6 +303,28 @@ class App {
     });
   }
 
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  _findWorkout(e) {
+    const workoutEl = e.target.closest('.icon-trash-empty');
+    if (!workoutEl) return;
+    console.log(workoutEl);
+    return this.#workouts.find(work => work.id === workoutEl.dataset.id);
+  }
+
+  _removeWorkout(e) {
+    const removeWorkout = this._findWorkout(e);
+
+    if (!removeWorkout) return;
+
+    this.#workouts = this.#workouts.filter(
+      work => work.id !== removeWorkout.id
+    );
+
+    localStorage.removeItem('workouts');
+    this._setLocalStorage();
+    location.reload();
+  }
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   _setLocalStorage() {
     localStorage.setItem('workouts', JSON.stringify(this.#workouts));
   }
